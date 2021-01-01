@@ -1,0 +1,47 @@
+<body class="bg-gray-700 mb-20 text-gray-50">
+  <%- include('./includes/navbar.ejs') %>
+  <section class="container mx-auto mt-10">
+    <div
+      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 px-10"
+    >
+      <% products.forEach(product => { %>
+      <div class="shadow-md bg-gray-800 text-gray-50 rounded overflow-hidden">
+        <div class="w-full h-64">
+          <img
+            src="/images/<%= product.image %> "
+            class="w-full h-full object-cover"
+            alt=""
+          />
+        </div>
+        <div class="p-4 pb-0 flex justify-between flex-col h-32">
+          <div>
+            <h1 class="text-yellow-400 border-b border-gray-700 pb-1" style="font-family: rajdhaniBold">
+              <%= product.name %>
+            </h1>
+            <p class="my-2"><%= product.description %></p>
+          </div>
+          <h2 class="mt-1 text-yellow-400" style="font-family: rajdhaniBold">
+            <%= product.price %> $
+          </h2>
+        </div>
+        <div
+          class="flex justify-between items-center m-4 border-t border-gray-700 pt-4"
+        >
+          <a
+            href="/dashboard/update-product/<%= product._id %> "
+            class="py-1 px-4 rounded shadow bg-purple-600 hover:bg-purple-900 transition-colors"
+          >
+            Update
+          </a>
+          <a
+            href="/admin/delete-product/<%= product._id %> "
+            class="py-1 px-4 rounded shadow bg-red-600 hover:bg-red-900 transition-colors"
+          >
+            Delete
+          </a>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+  </section>
+</body>

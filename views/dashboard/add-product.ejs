@@ -1,0 +1,76 @@
+<body class="text-white">
+  <div
+    class="flex h-screen bg-gray-700 transition-colors focus:bg-gray-900 dark:bg-gray-900 transition-colors"
+    :class="{ 'overflow-hidden': isSideMenuOpen}"
+  >
+    <!--! ---------------------- Dashboard Aside ------------------------------>
+    <%- include('../includes/dashboard-aside.ejs') %> <% if(error){ %>
+    <p
+      class="bg-red-500 py-2 px-3 rounded shadow remove-animation my-2 absolute left-5 top-28 z-50"
+    >
+      <%= error %>
+    </p>
+    <% } %>
+    <div class="flex flex-col flex-1">
+      <%- include('../includes/dashboard-header.ejs') %>
+      <main class="h-full pb-16 overflow-y-auto">
+        <div class="container px-6 mx-auto grid">
+          <h2
+            class="my-6 text-2xl font-semibold text-gray-100 placeholder-gray-400 dark:text-gray-200"
+          >
+            Add new product
+          </h2>
+          <!-- General elements -->
+          <h4
+            class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300"
+          >
+            Product Info
+          </h4>
+          <div
+            class="px-4 py-3 mb-8 bg-white rounded-lg shadow dark:bg-gray-800"
+          >
+            <form
+              action="/admin/add-new-product"
+              method="POST"
+              class="flex flex-col justify-center items-center"
+            >
+              <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+              <input
+                type="file"
+                name="image"
+                class="form-input my-3 w-96 text-gray-100 placeholder-gray-400 text-sm shadow bg-gray-700 transition-colors focus:bg-gray-900 p-2 rounded outline-none <%= elementError.includes('image') ? "border border-red-500" : null %>"
+              />
+              <input
+                type="text"
+                name="name"
+                value="<%= oldData !== undefined ? oldData.name : null%>"
+                class="form-input shadow w-96 text-gray-100 placeholder-gray-400 text-sm my-3 pl-2 p-3 rounded bg-gray-700 transition-colors focus:bg-gray-900 outline-none <%= elementError.includes('name') ? "border border-red-500" : null %>"
+                placeholder="Product name..."
+              />
+              <input
+                type="text"
+                name="description"
+                value="<%= oldData !== undefined ? oldData.description : null%>"
+                class="form-input shadow w-96 text-gray-100 placeholder-gray-400 text-sm my-3 pl-2 p-3 rounded bg-gray-700 transition-colors focus:bg-gray-900 outline-none <%= elementError.includes('description') ? "border border-red-500" : null %>"
+                placeholder="Product description..."
+              />
+              <input
+                type="text"
+                name="price"
+                value="<%= oldData !== undefined ? oldData.price : null%>"
+                class="form-input shadow w-96 text-gray-100 placeholder-gray-400 text-sm my-3 pl-2 p-3 rounded bg-gray-700 transition-colors focus:bg-gray-900 outline-none <%= elementError.includes('price') ? "border border-red-500" : null %>"
+                placeholder="Product price..."
+              />
+              <button
+                type="submit"
+                class="bg-purple-600 rounded py-2 px-3 shadow text-gray-50 mt-2 hover:bg-purple-900 transition-colors outline-none"
+              >
+                Add Product
+              </button>
+            </form>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>

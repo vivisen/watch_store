@@ -1,0 +1,26 @@
+// -- Added the new product in the user cart --
+1: start
+2: take a product ID and User Object
+3: Destructure cart in the user object
+4: Check in cart. if new product id is exist in the user cart.
+5: if exist: increament the product quantitiy
+6: if not exist: added the product in the user cart
+7: finish
+
+
+
+// -- Added user cart to the orders
+1: Start
+2: Take a user cart
+3: Destructured the cart items
+4: First, Checked the orders database. If the new user id is exist in the orders database before
+5: If exist => added the new products to the user cart items document
+6: If not exist => added the new document for new user and products
+7: Finish
+
+
+// --Success in life and work algorithm
+1: Start
+2: Work and Try, Work and Try, Work and Try
+3: Finish
+

@@ -1,0 +1,111 @@
+<body class="dark:bg-gray-700 dark:text-gray-50 transition-colors">
+  <%- include('./includes/navbar.ejs') %> <% if(products.length) {%>
+  <div
+    class="shadow overflow-hidden dark:bg-gray-800 m-10 rounded overflow-hidden"
+  >
+    <table class="min-w-full">
+      <!--! ---------thead-------- -->
+      <thead class="text-blue-400 border-b border-gray-600 dark:bg-gray-900">
+        <tr>
+          <th
+            class="w-auto py-2 text-left pl-5"
+            style="font-family: rajdhaniBold"
+          >
+            Number
+          </th>
+          <th
+            class="w-auto py-2 text-left pl-5"
+            style="font-family: rajdhaniBold"
+          >
+            Image
+          </th>
+          <th
+            class="w-auto py-2 text-left pl-5"
+            style="font-family: rajdhaniBold"
+          >
+            Name
+          </th>
+          <th
+            class="w-auto py-2 text-left pl-5"
+            style="font-family: rajdhaniBold"
+          >
+            Price
+          </th>
+          <th
+            class="w-auto py-2 text-left pl-5"
+            style="font-family: rajdhaniBold"
+          >
+            Quantity
+          </th>
+          <th
+            class="w-auto py-2 text-left pl-5"
+            style="font-family: rajdhaniBold"
+          >
+            Delete
+          </th>
+        </tr>
+      </thead>
+      <tbody class="dark:bg-gray-800">
+        <% products.forEach((product, index) => { %>
+        <tr class="border-b border-gray-700">
+          <td class="py-4 pl-5">#<%= index %></td>
+          <td class="py-4 pl-5">
+            <img
+              src="/images/<%= product.productId.image%>"
+              class="w-12 h-12 rounded shadow border border-gray-700 object-cover"
+              alt=""
+            />
+          </td>
+          <td class="py-4 pl-5"><%= product.productId.name%></td>
+          <td class="py-4 pl-5 text-yellow-400"><%= product.productId.price%> $</td>
+          <td class="py-4 pl-5">
+            <span class="bg-green-500 rounded-3xl text-sm py-1 px-3"
+              ><%= product.qty%></span
+            >
+          </td>
+          <td>
+            <form action="/delete-cart-product" method="POST">
+              <input type="hidden" value="<%= product.productId._id%>" name="productId" />
+              <button
+                type="submit"
+                class="fa fa-trash text-red-500 ml-8 focus:outline-none"
+              ></button>
+            </form>
+          </td>
+        </tr>
+
+        <% })%>
+        <tr>
+          <td class="py-4 pl-5" style="font-family: rajdhaniSemibold">
+            total price:
+            <span
+              class="rounded bg-yellow-400 py-1 px-3 text-white"
+              style="font-family: rajdhaniSemibold"
+              ><%= totalPrice%> $</span
+            >
+          </td>
+          <td></td>
+          <td>
+            <a
+              href="/add-orders"
+              class="py-2 px-3 rounded bg-red-600 shadow transition-colors hover:bg-red-900"
+              >Add To Orders Now!</a
+            >
+          </td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <% } else { %>
+  <h1
+    class="text-gray-50 text-center text-4xl"
+    style="font-family: rajdhaniSemibold"
+  >
+    Sorry, Your shopping cart is
+    <span class="text-red-600" style="font-family: rajdhaniBold">Empty</span>
+  </h1>
+  <% } %>
+</body>

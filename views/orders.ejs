@@ -1,0 +1,52 @@
+<body class="bg-gray-800 text-gray-100">
+  <%- include('./includes/navbar.ejs') %> 
+  <section class="container">
+    <% if(orders.length) { %>
+      <h1 style="font-family: rajdhaniSemibold;" class="text-gray-200 ml-5 mt-4 text-2xl">Your orders:</h1>
+    <ul class="m-5">
+      <% orders.forEach(order => { %>
+      <li class="bg-gray-900 py-2 px-3 rounded shadow my-3">
+        <div
+          class="order-header border-b mb-2 pb-2 flex justify-between items-center"
+        >
+          <p class="text-yellow-300" style="font-family: rajdhaniSemibold">
+            User: # <%= order.user.userId %> (
+            <a
+              href="/user/@<%= order.user.name %>"
+              class="text-gray-200"
+              style="font-family: rajdhaniSemibold"
+              >@<%= order.user.name%></a
+            >
+            )
+          </p>
+          <p class="text-gray-300" style="font-family: rajdhaniSemibold">
+            <span class="text-yellow-400" style="font-family: rajdhaniSemibold"
+              >Date and Time:</span
+            >
+            <%= order.createdAt %>
+          </p>
+        </div>
+        <div class="products">
+          <% order.products.forEach(product => { %>
+          <div class="product bg-gray-800 my-2 p-2 rounded shadow-md">
+            <h3 class="text-blue-400">
+              <span class="text-white">Product Name: </span> <%= product.pName
+              %> ( <%= product.qty %> )
+            </h3>
+          </div>
+          <% }) %>
+        </div>
+      </li>
+      <% }) %>
+    </ul>
+    <% } else { %>
+    <h1
+      style="font-family: rajdhaniBold"
+      class="text-center mt-32 text-5xl text-gray-200"
+    >
+      Your orders is
+      <span style="font-family: rajdhaniBold" class="text-red-500">EMPTY</span>
+    </h1>
+    <% } %>
+  </section>
+</body>

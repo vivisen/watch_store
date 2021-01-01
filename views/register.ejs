@@ -1,0 +1,60 @@
+<body class="dark:bg-gray-700 dark:text-gray-50 transition-colors">
+  <%- include('./includes/navbar.ejs') %>
+  <section class="container flex justify-center items-center mt-20">
+    <% if(error){ %>
+    <p
+      class="bg-red-500 py-2 px-3 rounded shadow remove-animation my-2 absolute left-5 top-28"
+    >
+      <%= error %>
+    </p>
+    <% } %> 
+    <div class="form-container w-96 bg-gray-900 py-5 px-3 rounded">
+      <h1
+        class="text-2xl text-center mb-4 pb-3 border-b border-gray-700"
+        style="font-family: rajdhaniBold"
+      >
+        Register
+      </h1>
+      <form action="/signup" method="POST" class="text-black">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+        <label for="name" class="text-gray-300 mb-1 block">Name</label>
+        <input
+          class="w-full mb-2 rounded py-2 px-3 rounded shadow-md bg-gray-700 text-gray-200 outline-none transition-colors focus:bg-gray-800"
+          type="text"
+          name="name"
+          value="<%= oldData.name %>"
+          placeholder="e.g alireza darvishi"
+        />
+        <label for="username" class="text-gray-300 mb-1 block">Username</label>
+        <input
+          class="w-full mb-2 rounded py-2 px-3 rounded shadow-md bg-gray-700 text-gray-200 outline-none transition-colors focus:bg-gray-800"
+          type="text"
+          name="username"
+          value="<%= oldData.username %>"
+          placeholder="e.g vivisen"
+        />
+        <label for="email" class="text-gray-300 mb-1 block">E-Mail</label>
+        <input
+          class="w-full mb-2 rounded py-2 px-3 rounded shadow-md bg-gray-700 text-gray-200 outline-none transition-colors focus:bg-gray-800"
+          type="text"
+          name="email"
+          value="<%= oldData.email %>"
+          placeholder="e.g vivisen@yahoo.com"
+        />
+        <label for="password" class="text-gray-300 mb-1 block">Password</label>
+        <input
+          class="w-full mb-2 rounded py-2 px-3 rounded shadow-md bg-gray-700 text-gray-200 outline-none transition-colors focus:bg-gray-800"
+          type="password"
+          name="password"
+          placeholder="e.g @123456#"
+        />
+        <button
+          type="submit"
+          class="mx-auto block bg-purple-500 rounded shadow py-1 px-3 text-gray-300 mt-2 transition-colors hover:bg-purple-900"
+        >
+          Register
+        </button>
+      </form>
+    </div>
+  </section>
+</body>

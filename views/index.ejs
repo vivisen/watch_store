@@ -1,0 +1,47 @@
+<body class="dark:bg-gray-700 dark:text-gray-50 transition-colors">
+  <%- include('./includes/loader.ejs') %>
+  <div x-data="{ cartOpen: false , isOpen: false }">
+    <%- include('./includes/navbar.ejs') %>
+    <!--! ---------------------PRODUCTS SECTION--------------------------- -->
+    <% if(products.length){ %>
+    <main class="my-8">
+      <div class="mx-auto px-6">
+        <div class="mb-20">
+          <div class="swiper-container">
+            <div class="swiper-wrapper">
+              <%- include('./includes/swiper-products.ejs') %>
+            </div>
+            <!-- Add Arrows -->
+            <div
+              class="swiper-button-next dark:text-red-500 bg-white dark:hover:bg-red-500 transition dark:hover:text-white rounded"
+            ></div>
+            <div
+              class="swiper-button-prev dark:text-red-500 bg-white dark:hover:bg-red-500 transition dark:hover:text-white rounded"
+            ></div>
+          </div>
+        </div>
+        <div>
+          <div class="swiper-container">
+            <div class="swiper-wrapper">
+              <%- include('./includes/swiper-products.ejs') %>
+            </div>
+            <!-- Add Arrows -->
+            <div
+              class="swiper-button-next dark:text-red-500 bg-white dark:hover:bg-red-500 transition dark:hover:text-white rounded"
+            ></div>
+            <div
+              class="swiper-button-prev dark:text-red-500 bg-white dark:hover:bg-red-500 transition dark:hover:text-white rounded"
+            ></div>
+          </div>
+        </div>
+        <!--! ------------------------PAGINATION--------------------------- -->
+        <%- include('./includes/pagination.ejs') %>
+      </div>
+    </main>
+    <% } else {%>
+      Sorry, Not exist products for now...
+    <% } %> 
+    <!--! ----------------------FOOTER------------------------ -->
+    <%- include('./includes/footer.ejs') %>
+  </div>
+</body>
