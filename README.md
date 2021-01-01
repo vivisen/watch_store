@@ -1,1 +1,1 @@
-<h1>Hello GIT</h1>
+<h1 style="color: red">Hello GIT</h1>
