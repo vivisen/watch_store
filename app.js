@@ -45,7 +45,7 @@ app.use(
     secret: "my secret",
     resave: false,
     saveUninitialized: false,
-    cookie: { httpOnly: true, maxAge: 600000 },
+    cookie: { httpOnly: true, maxAge: 6000000 },
     store,
   })
 );
@@ -69,6 +69,7 @@ app.use((req, res, next) => {
   res.locals.username = req.user ? req.user.username : null;
   next();
 });
+
 app.use(flash());
 
 //! Development configs
@@ -83,10 +84,17 @@ app.use(authRouter);
 app.use("/dashboard", dashboardRoutes);
 
 //! 500
-app.use("/500", _500);
+app.use(_500);
 
 //! 404
 app.use(_404);
+
+//! Error handling middleware
+app.use((error, req, res, next) => {
+  console.log("this middleware run");
+  res.redirect("/500");
+  return next();
+});
 
 const { PORT } = process.env;
 

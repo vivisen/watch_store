@@ -25,7 +25,7 @@ module.exports.getLogin = (req, res) => {
   });
 };
 
-module.exports.postSignup = async (req, res) => {
+module.exports.postSignup = async (req, res, next) => {
   try {
     const { name, username, email, password } = req.body;
     if (validationResult(req).isEmpty()) {
@@ -60,11 +60,13 @@ module.exports.postSignup = async (req, res) => {
       });
     }
   } catch (err) {
-    console.log("register new user ERROR => ", err);
+    const error = new Error(err);
+    error.httpStatusCode = 500;
+    return next(error);
   }
 };
 
-module.exports.postLogin = async (req, res) => {
+module.exports.postLogin = async (req, res, next) => {
   const { email, password } = req.body;
   try {
     if (validationResult(req).isEmpty()) {
@@ -108,7 +110,9 @@ module.exports.postLogin = async (req, res) => {
       });
     }
   } catch (err) {
-    console.log("post login ERROR => ", err);
+    const error = new Error(err);
+    error.httpStatusCode = 500;
+    return next(error);
   }
 };
 
@@ -124,7 +128,7 @@ module.exports.getResetPassword = (req, res) => {
   });
 };
 
-module.exports.postResetPassword = async (req, res) => {
+module.exports.postResetPassword = async (req, res, next) => {
   try {
     const { email } = req.body;
     const token = crypto.randomBytes(12).toString("hex");
@@ -157,7 +161,9 @@ module.exports.postResetPassword = async (req, res) => {
     });
     res.redirect("/");
   } catch (err) {
-    console.log("reset password ERROR => ", err);
+    const error = new Error(err);
+    error.httpStatusCode = 500;
+    return next(error);
   }
 };
 
@@ -169,7 +175,7 @@ module.exports.getNewPassword = (req, res) => {
   });
 };
 
-module.exports.postNewPassword = async (req, res) => {
+module.exports.postNewPassword = async (req, res, next) => {
   try {
     if (validationResult(req).isEmpty()) {
       const { password, userToken } = req.body;
@@ -196,6 +202,8 @@ module.exports.postNewPassword = async (req, res) => {
       });
     }
   } catch (err) {
-    console.log("post new password ERROR => ", err);
+    const error = new Error(err);
+    error.httpStatusCode = 500;
+    return next(error);
   }
 };

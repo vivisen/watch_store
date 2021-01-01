@@ -2,7 +2,7 @@ const { validationResult } = require("express-validator");
 
 const Products = require("../model/products");
 
-module.exports.addNewProduct = async (req, res) => {
+module.exports.addNewProduct = async (req, res, next) => {
   try {
     if (validationResult(req).isEmpty()) {
       const { image, name, description, price } = req.body;
@@ -28,7 +28,9 @@ module.exports.addNewProduct = async (req, res) => {
       });
     }
   } catch (err) {
-    return res.redirect("/500");
+    const error = new Error(err);
+    error.httpStatusCode = 500;
+    return next(error);
   }
 };
 
@@ -42,7 +44,7 @@ module.exports.adminProducts = async (req, res) => {
 };
 
 // post update product
-module.exports.updateProduct = async (req, res) => {
+module.exports.updateProduct = async (req, res, next) => {
   const { id } = req.params;
   try {
     if (validationResult(req).isEmpty()) {
@@ -63,15 +65,19 @@ module.exports.updateProduct = async (req, res) => {
       });
     }
   } catch (err) {
-    console.log("Update Product ERROR => ", err);
+    const error = new Error(err);
+    error.httpStatusCode = 500;
+    return next(error);
   }
 };
 
-module.exports.deleteProduct = async (req, res) => {
+module.exports.deleteProduct = async (req, res, next) => {
   try {
     await Products.deleteOne({ _id: req.params.id });
     res.redirect("/");
   } catch (err) {
-    console.log("delete product ERROR => ", err);
+    const error = new Error(err);
+    error.httpStatusCode = 500;
+    return next(error);
   }
 };

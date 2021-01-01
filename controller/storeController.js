@@ -1,13 +1,19 @@
 const Products = require("../model/products");
 
 // index page controller
-module.exports.indexPage = async (req, res) => {
-  const products = await Products.find();
-  res.render("index", {
-    title: "Rozmatik Kala",
-    products,
-    authentication: req.session.isLoggined,
-  });
+module.exports.indexPage = async (req, res, next) => {
+  try {
+    const products = await Products.find();
+    res.render("index", {
+      title: "Rozmatik Kala",
+      products,
+      authentication: req.session.isLoggined,
+    });
+  } catch (err) {
+    const error = new Error(err);
+    error.httpStatusCode = 500;
+    return next(error);
+  }
 };
 
 // all products page controller
@@ -18,17 +24,19 @@ module.exports.allProducts = (req, res) => {
   });
 };
 
-module.exports.addToCart = async (req, res) => {
+module.exports.addToCart = async (req, res, next) => {
   try {
     const { _id } = await Products.findById(req.body.productId.trim());
     await req.user.addToCart(_id, req.user);
     res.redirect("/");
   } catch (err) {
-    console.log("add to cart ERROR => ", err);
+    const error = new Error(err);
+    error.httpStatusCode = 500;
+    return next(error);
   }
 };
 
-module.exports.cart = async (req, res) => {
+module.exports.cart = async (req, res, next) => {
   try {
     const products = await req.user
       .populate("cart.items.productId")
@@ -42,21 +50,25 @@ module.exports.cart = async (req, res) => {
       authentication: req.session.isLoggined,
     });
   } catch (err) {
-    console.log("get cart page ERROR => ", err);
+    const error = new Error(err);
+    error.httpStatusCode = 500;
+    return next(error);
   }
 };
 
-module.exports.deleteCartProduct = async (req, res) => {
+module.exports.deleteCartProduct = async (req, res, next) => {
   const { productId: id } = req.body;
   try {
     await req.user.deleteFromCart(id, req.user);
     res.redirect("/cart");
   } catch (err) {
-    console.log("delete product ERROR => ", err);
+    const error = new Error(err);
+    error.httpStatusCode = 500;
+    return next(error);
   }
 };
 
-module.exports.productDetails = async (req, res) => {
+module.exports.productDetails = async (req, res, next) => {
   const { productId } = req.body;
   try {
     const product = await Products.findById(productId);
@@ -66,26 +78,36 @@ module.exports.productDetails = async (req, res) => {
       authentication: req.session.isLoggined,
     });
   } catch (err) {
-    console.log("get product details ERROR => ", err);
+    const error = new Error(err);
+    error.httpStatusCode = 500;
+    return next(error);
   }
 };
 
 // get orders
-module.exports.orders = async (req, res) => {
-  const orders = await req.user.getOrders(req.user);
-  res.render("orders", {
-    title: "ORDERS",
-    orders,
-    authentication: req.session.isLoggined,
-  });
+module.exports.orders = async (req, res, next) => {
+  try {
+    const orders = await req.user.getOrders(req.user);
+    res.render("orders", {
+      title: "ORDERS",
+      orders,
+      authentication: req.session.isLoggined,
+    });
+  } catch (err) {
+    const error = new Error(err);
+    error.httpStatusCode = 500;
+    return next(error);
+  }
 };
 
 // post orders
-module.exports.addOrders = async (req, res) => {
+module.exports.addOrders = async (req, res, next) => {
   try {
     await req.user.addOrders(req.user);
     res.redirect("/cart");
   } catch (err) {
-    console.log("add to orders ERROR => ", err);
+    const error = new Error(err);
+    error.httpStatusCode = 500;
+    return next(error);
   }
 };
