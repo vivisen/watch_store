@@ -7,6 +7,7 @@ const bodyParser = require("body-parser");
 const session = require("express-session");
 const mongodbStore = require("connect-mongodb-session")(session);
 const csrf = require("csurf");
+const multer = require("multer");
 const flash = require("flash");
 const dotenv = require("dotenv");
 const database = require("./utils/database");
@@ -22,6 +23,20 @@ const { _404, _500 } = require("./controller/error");
 
 const app = express();
 const csrfProtection = csrf();
+
+const multerConfig = multer.diskStorage({
+  destination(req, file, cb) {
+    const rootDir = require("./utils/rooDir");
+    return cb(null, path.join(rootDir, "public", "images"));
+  },
+  filename(req, file, cb) {
+    return cb(null, `${file.fieldname}-${Date.now()}.png`);
+  },
+});
+app.use(multer({ storage: multerConfig }).single("image"), (req, res, next) => {
+  console.log(req.body);
+  next();
+});
 
 //! Configs
 app.set("views", "views");
@@ -69,7 +84,6 @@ app.use((req, res, next) => {
   res.locals.username = req.user ? req.user.username : null;
   next();
 });
-
 app.use(flash());
 
 //! Development configs
@@ -82,9 +96,7 @@ app.use(storeRoutes);
 app.use("/admin", adminRouter);
 app.use(authRouter);
 app.use("/dashboard", dashboardRoutes);
-
-//! 500
-app.use(_500);
+app.use("/500", _500);
 
 //! 404
 app.use(_404);
