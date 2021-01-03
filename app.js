@@ -24,6 +24,7 @@ const { _404, _500 } = require("./controller/error");
 const app = express();
 const csrfProtection = csrf();
 
+//! Multer Config
 const multerConfig = multer.diskStorage({
   destination(req, file, cb) {
     const rootDir = require("./utils/rooDir");
@@ -33,10 +34,24 @@ const multerConfig = multer.diskStorage({
     return cb(null, `${file.fieldname}-${Date.now()}.png`);
   },
 });
-app.use(multer({ storage: multerConfig }).single("image"), (req, res, next) => {
-  console.log(req.body);
-  next();
-});
+const multerFilter = (req, file, cb) => {
+  if (
+    file.mimetype === "image/jpg" ||
+    file.mimetype === "image/png" ||
+    file.mimetype === "image/jpeg"
+  ) {
+    return cb(null, true);
+  }
+  return cb(null, false);
+};
+// multer middleware
+app.use(
+  multer({ storage: multerConfig, fileFilter: multerFilter }).single("image"),
+  (req, res, next) => {
+    console.log(req.body);
+    next();
+  }
+);
 
 //! Configs
 app.set("views", "views");
