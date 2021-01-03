@@ -2,7 +2,7 @@
 <p>NOTE: For usign of this proje you should install all exist package in package.json file, with this command:</p>
 <ul>
     <li>First command: npm init -y</li>
-    <li>First command: npm i</li>
+    <li>Second command: npm i</li>
 </ul>
 <hr/>
 <p>I created a store with ( NodeJs, ExpressJs, TailwindCss ) [ Just for practice! ]</p>
