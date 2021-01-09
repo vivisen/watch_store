@@ -64,9 +64,7 @@ UserSchema.methods.addToCart = (newProductId, user) => {
   );
   if (findIndex >= 0) {
     cart.items.map((p) => {
-      if (p.productId.toString() === newProductId.toString()) {
-        return p.qty++;
-      }
+      if (p.productId.toString() === newProductId.toString()) return p.qty++;
     });
     return User.updateOne({ _id: user._id }, { cart: cart });
   } else {
@@ -96,7 +94,12 @@ UserSchema.methods.addOrders = async (user) => {
       .populate("cart.items.productId")
       .execPopulate();
     const products = productsFromCart.cart.items.map((p) => {
-      return { pId: p.productId._id, pName: p.productId.name, qty: p.qty };
+      return {
+        pId: p.productId._id,
+        pName: p.productId.name,
+        qty: p.qty,
+        price: p.productId.price,
+      };
     });
     const newOrder = {
       products: [...products],

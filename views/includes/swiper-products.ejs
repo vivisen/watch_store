@@ -3,11 +3,11 @@
   <div
     class="w-full h-96 dark:bg-gray-800 max-w-sm mx-auto rounded-md shadow-md overflow-hidden transform hover:-translate-y-1 transition"
   >
-    <div class="h-56 w-full bg-cover relative">
+    <div class="h-56 w-full bg-cover relative p-2">
       <img
         src="/images/<%= product.image %>"
         alt=""
-        class="w-full h-full object-cover"
+        class="w-full h-full object-cover rounded shadow-xl"
       />
       <form action="/product-details" method="POST">
         <input type="hidden" name="productId" value="<%=product._id%>" />

@@ -24,6 +24,7 @@
           <form
             action="/admin/update-product/<%= oldId === undefined ? product._id : oldId %> "
             method="POST"
+            enctype="multipart/form-data"
             class="flex flex-col items-center justify-centerp py-5"
           >
             <label class="text-gray-300 mb-1 block w-96">Image</label>

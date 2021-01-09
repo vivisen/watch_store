@@ -34,13 +34,16 @@
             ></div>
           </div>
         </div>
-        <!--! ------------------------PAGINATION--------------------------- -->
-        <%- include('./includes/pagination.ejs') %>
       </div>
     </main>
     <% } else {%>
+    <h1
+      class="text-center my-16 text-gray-200 text-4xl"
+      style="font-family: rajdhaniSemibold"
+    >
       Sorry, Not exist products for now...
-    <% } %> 
+    </h1>
+    <% } %>
     <!--! ----------------------FOOTER------------------------ -->
     <%- include('./includes/footer.ejs') %>
   </div>

@@ -5,7 +5,8 @@ const OrdersShcema = new mongoose.Schema({
     {
       pName: { type: String, required: true },
       qty: { type: Number, required: true },
-      pId: { type: mongoose.Schema.ObjectId },
+      pId: { type: mongoose.Schema.ObjectId, required: true },
+      price: { type: Number, required: true },
     },
   ],
   user: {

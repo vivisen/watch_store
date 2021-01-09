@@ -1,8 +1,13 @@
 <body class="bg-gray-800 text-gray-100">
-  <%- include('./includes/navbar.ejs') %> 
+  <%- include('./includes/navbar.ejs') %>
   <section class="container">
     <% if(orders.length) { %>
-      <h1 style="font-family: rajdhaniSemibold;" class="text-gray-200 ml-5 mt-4 text-2xl">Your orders:</h1>
+    <h1
+      style="font-family: rajdhaniSemibold"
+      class="text-gray-200 ml-5 mt-4 text-2xl"
+    >
+      Your orders:
+    </h1>
     <ul class="m-5">
       <% orders.forEach(order => { %>
       <li class="bg-gray-900 py-2 px-3 rounded shadow my-3">
@@ -10,14 +15,19 @@
           class="order-header border-b mb-2 pb-2 flex justify-between items-center"
         >
           <p class="text-yellow-300" style="font-family: rajdhaniSemibold">
-            User: # <%= order.user.userId %> (
+            User: # <%= order.user.userId %>
             <a
               href="/user/@<%= order.user.name %>"
               class="text-gray-200"
               style="font-family: rajdhaniSemibold"
               >@<%= order.user.name%></a
             >
-            )
+            <a
+              style="font-family: rajdhaniSemibold"
+              href="/order/<%= order._id  %>"
+              class="text-pink-500 ml-2"
+              >invoice</a
+            >
           </p>
           <p class="text-gray-300" style="font-family: rajdhaniSemibold">
             <span class="text-yellow-400" style="font-family: rajdhaniSemibold"

@@ -1,3 +1,4 @@
+// In The Name Of Allah
 const path = require("path");
 
 const express = require("express");
@@ -24,12 +25,15 @@ const { _404, _500 } = require("./controller/error");
 const app = express();
 const csrfProtection = csrf();
 
-//! Multer Config
+//! Multer Configoration
 const multerConfig = multer.diskStorage({
+  // the folder where the file is stored.
+
   destination(req, file, cb) {
     const rootDir = require("./utils/rooDir");
     return cb(null, path.join(rootDir, "public", "images"));
   },
+  // config file name.
   filename(req, file, cb) {
     return cb(null, `${file.fieldname}-${Date.now()}.png`);
   },
@@ -48,7 +52,6 @@ const multerFilter = (req, file, cb) => {
 app.use(
   multer({ storage: multerConfig, fileFilter: multerFilter }).single("image"),
   (req, res, next) => {
-    console.log(req.body);
     next();
   }
 );
@@ -117,11 +120,11 @@ app.use("/500", _500);
 app.use(_404);
 
 //! Error handling middleware
-app.use((error, req, res, next) => {
-  console.log("this middleware run");
-  res.redirect("/500");
-  return next();
-});
+// app.use((error, req, res, next) => {
+//   console.log("this middleware run");
+//   res.redirect("/500");
+//   return next();
+// });
 
 const { PORT } = process.env;
 
@@ -136,3 +139,5 @@ database
   .catch((err) => {
     console.log(chalk.bgRed("DATABASE CONNECTION ERROR => ", err));
   });
+
+// I want and I can 💪

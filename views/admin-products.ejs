@@ -1,47 +1,53 @@
 <body class="bg-gray-700 mb-20 text-gray-50">
-  <%- include('./includes/navbar.ejs') %>
+  <%- include('./includes/navbar.ejs') %> <%- include('./includes/loader.ejs')
+  %>
   <section class="container mx-auto mt-10">
+    <audio src="/mig/pristine.mp3" class="message-sound"></audio>
+    <div class="mig-container"></div>
     <div
       class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 px-10"
     >
       <% products.forEach(product => { %>
-      <div class="shadow-md bg-gray-800 text-gray-50 rounded overflow-hidden">
-        <div class="w-full h-64">
+      <div
+        class="w-full h-96 dark:bg-gray-800 max-w-sm mx-auto rounded-md shadow-md overflow-hidden"
+      >
+        <div class="h-56 w-full bg-cover relative p-2">
           <img
-            src="/images/<%= product.image %> "
-            class="w-full h-full object-cover"
+            src="/images/<%= product.image %>"
             alt=""
+            class="w-full h-full object-cover rounded shadow-xl"
           />
         </div>
-        <div class="p-4 pb-0 flex justify-between flex-col h-32">
-          <div>
-            <h1 class="text-yellow-400 border-b border-gray-700 pb-1" style="font-family: rajdhaniBold">
-              <%= product.name %>
-            </h1>
-            <p class="my-2"><%= product.description %></p>
+        <div class="px-5 py-3 flex flex-col justify-between h-40">
+          <h3
+            class="uppercase text-yellow-300"
+            style="font-family: RajdhaniBold"
+          >
+            <%= product.name %>
+          </h3>
+          <p class="text-gray-300"><%= product.description %></p>
+          <div
+            class="flex justify-between items-center border-t border-gray-500 pt-3"
+          >
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+            <input type="hidden" name="productId" value="<%= product._id %>" />
+            <button
+              class="py-1 px-3 text-gray-100 bg-purple-500 hover:bg-purple-800 rounded transition-colors"
+            >
+              UPDATE
+            </button>
+            <button
+              class="py-1 px-3 text-gray-100 bg-red-500 hover:bg-red-800 delete-product rounded transition-colors"
+            >
+              DELETE
+            </button>
           </div>
-          <h2 class="mt-1 text-yellow-400" style="font-family: rajdhaniBold">
-            <%= product.price %> $
-          </h2>
-        </div>
-        <div
-          class="flex justify-between items-center m-4 border-t border-gray-700 pt-4"
-        >
-          <a
-            href="/dashboard/update-product/<%= product._id %> "
-            class="py-1 px-4 rounded shadow bg-purple-600 hover:bg-purple-900 transition-colors"
-          >
-            Update
-          </a>
-          <a
-            href="/admin/delete-product/<%= product._id %> "
-            class="py-1 px-4 rounded shadow bg-red-600 hover:bg-red-900 transition-colors"
-          >
-            Delete
-          </a>
         </div>
       </div>
       <% }) %>
     </div>
   </section>
 </body>
+<link rel="stylesheet" href="/mig/mig.css" />
+<script src="/mig/mig.js"></script>
+<script src="/js/admin-products.js"></script>

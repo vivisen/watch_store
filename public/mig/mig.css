@@ -1,0 +1,151 @@
+.mig-container {
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  padding: 2em;
+}
+.mig {
+  border-radius: 5px;
+  z-index: 9999;
+  width: 400px;
+  margin-bottom: 2em;
+  position: relative;
+  top: -12em;
+  transition: 1s cubic-bezier(0, 1.45, 1, 0.99);
+  overflow: hidden;
+}
+.mig.active {
+  top: 0em;
+}
+.mig.success {
+  background: linear-gradient(to left, #239855, #6ecf96);
+  box-shadow: 0 0 0 5px rgba(110, 207, 150, 0.2);
+}
+.mig.error {
+  background: linear-gradient(to left, #ec5957, #f3994b);
+  box-shadow: 0 0 0 5px rgba(236, 90, 87, 0.2);
+}
+.mig.warning {
+  background: linear-gradient(to left, #ffab2d, #ffc062);
+  box-shadow: 0 0 0 5px rgba(255, 171, 45, 0.2);
+}
+.mig.info {
+  background: linear-gradient(to left, #4a56e2, #7984f8);
+  box-shadow: 0 0 0 5px rgba(74, 86, 226, 0.2);
+}
+.mig.dark {
+  background: linear-gradient(to left, #000000, #3a3e42);
+  box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.2);
+}
+.mig.done {
+  background: linear-gradient(to left, #be2edd, #d66eee);
+  box-shadow: 0 0 0 5px rgba(190, 46, 221, 0.2);
+}
+.mig::before,
+.mig::after {
+  content: "";
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  width: 100px;
+  height: 100px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+}
+.mig::after {
+  top: -50px;
+  left: 25px;
+}
+.mig-body {
+  padding: 1.5em 2em;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.mig-avatar {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  box-shadow: 0px 9px 20px 7px #0000001f;
+  overflow: hidden;
+}
+.mig-avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.mig.error .mig-avatar {
+  border: 3px solid #f3994b;
+}
+.mig.success .mig-avatar {
+  border: 3px solid #6ecf96;
+}
+.mig.warning .mig-avatar {
+  border: 3px solid #ffc062;
+}
+.mig.info .mig-avatar {
+  border: 3px solid #7984f8;
+}
+.mig.dark .mig-avatar {
+  border: 3px solid #656c74;
+}
+.mig.done .mig-avatar {
+  border: 3px solid #d66eee;
+}
+.mig-title {
+  color: #fff;
+  font-size: 20px;
+  font-family: rajdhaniBold;
+}
+.mig-messages {
+  margin-left: 1em;
+}
+.mig-message {
+  color: #ffffffd3;
+  padding-top: 0.2em;
+  font-size: 14px;
+  font-family: rajdhaniMedium;
+}
+.mig-clock {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  color: #ffffffd3;
+}
+.close {
+  position: absolute;
+  color: #ffffffd3;
+  top: 1em;
+  left: 1em;
+  cursor: pointer;
+}
+/*! -------------------STARTED THE MIG QUERY STYLES-------------------- */
+@media (max-width: 650px) {
+  .mig-container {
+    padding: 1em;
+  }
+}
+@media (max-width: 450px) {
+  .mig-container {
+    padding: 1em 0.8em;
+  }
+  .mig {
+    width: 320px;
+  }
+  .mig .mig-messages {
+    margin-right: 1em;
+  }
+  .mig .mig-title {
+    font-size: 16px;
+  }
+}
+@media (max-width: 350px) {
+  .mig {
+    width: 300px;
+  }
+  .mig .mig-messages {
+    margin-right: 0.5em;
+  }
+}
